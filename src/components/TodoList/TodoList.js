@@ -3,7 +3,7 @@ import TodoListItem from '../TodoListItem/TodoListItem';
 import './TodoList.css'
 
 
-function TodoList({ todos }) {
+function TodoList({ todos, onDeleted }) {
 
   const elements = todos.map((item) => {
 
@@ -11,7 +11,10 @@ function TodoList({ todos }) {
 
     return (
       <li key={id} className='list-group-item todo-list'>
-        <TodoListItem { ...itemProps} /> 
+        <TodoListItem 
+          { ...itemProps} 
+          onDeleted={() => onDeleted(id)}
+        /> 
         {/* Spread оператор для передачи всех свойств*/}
       </li>
     );

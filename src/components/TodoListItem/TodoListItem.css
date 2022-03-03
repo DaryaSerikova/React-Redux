@@ -22,7 +22,7 @@
     text-decoration-line: line-through;
 }
   
-.todo-list-item .important .todo-list-item-label {
+.todo-list-item.important .todo-list-item-label {
     font-weight: bold;
     color: steelblue;
 }

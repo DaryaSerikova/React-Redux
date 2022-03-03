@@ -8,15 +8,26 @@ class TodoListItem extends Component {
     super();
 
     this.state = {
-      done: false
+      done: false,
+      important: false
     };
 
     this.onLabelClick = () => {
-      this.setState({
-        done: true
+      this.setState((state) => {
+        return {
+          done: !state.done
+        };
       });
       // console.log(`Done: ${this.props.label}`);
     };
+  }
+
+  onMarkImportant = () => {
+    this.setState((state) => {
+      return {
+        important: !state.important
+      };
+    });
   }
   // state = { //с помощью Class Fields (Полей Класса)
   //   done: false
@@ -28,8 +39,8 @@ class TodoListItem extends Component {
 
   render() {
 
-    const { label, important = false } = this.props;
-    const { done } = this.state;
+    const { label } = this.props;
+    const { done, important } = this.state;
 
     let classNames ="todo-list-item";
     
@@ -37,24 +48,27 @@ class TodoListItem extends Component {
       classNames += " done";
     }
 
-    const style = {
-      color: important ? 'steelblue' : 'black',
-      fontWeight: important ? 'bold' : 'normal'
-    };
+    if (important) {
+      classNames += " important";
+    }
+    // const style = {
+    //   color: important ? 'steelblue' : 'black',
+    //   fontWeight: important ? 'bold' : 'normal'
+    // };
 
   
     return (
       <span className={classNames}>
-      {console.log(important, style.color, style.fontWeight)}
+      {/* {console.log(important, style.color, style.fontWeight)} */}
         <span
           className="todo-list-item-label"
-          style={style}
           onClick={this.onLabelClick}>
           {label}
         </span>
   
         <button type="button"
-                className="btn btn-outline-success btn-sm float-right">
+                className="btn btn-outline-success btn-sm float-right"
+                onClick={this.onMarkImportant}>
           <i className="fa fa-exclamation" />
         </button>
   

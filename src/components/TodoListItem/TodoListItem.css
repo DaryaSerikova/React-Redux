@@ -14,9 +14,9 @@
     user-select: none;
 }
   
-.todo-list-item .todo-list-item-label {
+/* .todo-list-item .todo-list-item-label {
     text-decoration: line-through;
-}
+} */
 
 .done {
     text-decoration-line: line-through;

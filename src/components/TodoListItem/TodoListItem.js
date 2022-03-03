@@ -12,7 +12,10 @@ class TodoListItem extends Component {
     };
 
     this.onLabelClick = () => {
-      console.log(`Done: ${this.props.label}`);
+      this.setState({
+        done: true
+      });
+      // console.log(`Done: ${this.props.label}`);
     };
   }
   // state = { //с помощью Class Fields (Полей Класса)
@@ -31,7 +34,7 @@ class TodoListItem extends Component {
     let classNames ="todo-list-item";
     
     if (done) {
-      classNames += "done";
+      classNames += " done";
     }
 
     const style = {

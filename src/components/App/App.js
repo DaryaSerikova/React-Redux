@@ -20,6 +20,7 @@ export default class App extends Component {
       this.createTodoItem('Have a lunch')
     ],
     term:'',
+    filter: 'all' //active,all, done
   };
 
   createTodoItem(label) {
@@ -94,6 +95,10 @@ export default class App extends Component {
     });
   };
 
+  onFilterChange = (filter) => {
+    this.setState({ filter});
+  };
+
   onSearchChange = (term) => {
     this.setState({ term });
   };
@@ -109,15 +114,29 @@ export default class App extends Component {
     });
   }
 
+  filter(items, filter) {
+    switch(filter) {
+      case 'all':
+        return items;
+      case 'active':
+        return items.filter((item)=> !item.done);
+      case 'done':
+        return items.filter((item)=> item.done);
+      default:
+        return items;
+    }
+  }
+
   render() {
 
-    const { todoData, term } = this.state;
+    const { todoData, term, filter } = this.state;
 
-    const visibleItems = this.search(todoData, term);
+    const visibleItems = this.filter(
+      this.search(todoData, term), filter);
 
     const doneCount = todoData.filter((el) => el.done).length;
-//filter - создает новый массив, берем все элементы, у которых
-// done===true, И берем длину отфильтрованного массива
+    //filter - создает новый массив, берем все элементы, у которых
+    // done===true, И берем длину отфильтрованного массива
 
     const todoCount = todoData.length - doneCount;
 
@@ -128,7 +147,9 @@ export default class App extends Component {
           <SearchPanel 
             onSearchChange={this.onSearchChange}
           />
-          <ItemStatusFilter />
+          <ItemStatusFilter 
+            filter={filter}
+            onFilterChange={this.onFilterChange}/>
         </div>
   
         <TodoList 
